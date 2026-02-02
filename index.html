@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>💕 A Special Question for Hema 💕</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Dancing+Script:wght@400;700&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -24,7 +24,7 @@
 
         body {
             min-height: 100vh;
-            font-family: 'Quicksand', sans-serif;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
             overflow-x: hidden;
             position: relative;
@@ -192,7 +192,7 @@
         .btn {
             padding: 18px 50px;
             font-size: 1.3rem;
-            font-family: 'Quicksand', sans-serif;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             font-weight: 600;
             border: none;
             border-radius: 50px;
@@ -483,47 +483,267 @@
             }
         }
 
+        /* Music Player */
+        .music-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid var(--rose-pink);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 5px 20px rgba(230, 57, 98, 0.3);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .music-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(230, 57, 98, 0.4);
+        }
+
+        .music-toggle.playing {
+            animation: pulse-music 1s ease-in-out infinite;
+            background: linear-gradient(135deg, var(--blush), #fff);
+        }
+
+        @keyframes pulse-music {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .music-note {
+            display: inline-block;
+        }
+
+        .music-toggle.playing .music-note {
+            animation: bounce-note 0.5s ease-in-out infinite;
+        }
+
+        @keyframes bounce-note {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-3px); }
+        }
+
         /* Responsive */
-        @media (max-width: 600px) {
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+                min-height: 100svh; /* Use small viewport height for mobile */
+            }
+
             .question-section {
-                padding: 30px 25px;
+                padding: 30px 20px;
                 margin: 10px;
+                max-width: 95%;
+                border-radius: 25px;
             }
 
             .name {
-                font-size: 2.5rem;
+                font-size: 2.8rem;
+                letter-spacing: 2px;
+                margin-bottom: 15px;
             }
 
             .question {
+                font-size: 1.4rem;
+                line-height: 1.3;
+            }
+
+            .emoji-row {
                 font-size: 1.5rem;
+                margin: 10px 0;
             }
 
             .buttons-container {
                 flex-direction: column;
                 gap: 15px;
+                min-height: 180px;
+                margin-top: 20px;
             }
 
             .btn {
-                padding: 15px 40px;
+                padding: 15px 45px;
                 font-size: 1.1rem;
+                width: auto;
+                min-width: 150px;
+            }
+
+            .btn-no.escaping {
+                /* Smaller movements for mobile */
+                transition: transform 0.3s ease;
+            }
+
+            .card-decoration {
+                font-size: 22px;
+            }
+
+            .card-decoration.top-left { top: -10px; left: -10px; }
+            .card-decoration.top-right { top: -10px; right: -10px; }
+            .card-decoration.bottom-left { bottom: -10px; left: -10px; }
+            .card-decoration.bottom-right { bottom: -10px; right: -10px; }
+
+            /* Success Section Mobile */
+            .success-section {
+                padding: 0 10px;
+                width: 100%;
             }
 
             .success-title {
                 font-size: 2.5rem;
+                margin-bottom: 15px;
+            }
+
+            .success-subtitle {
+                font-size: 1.3rem;
+                margin-bottom: 20px;
             }
 
             .date-card {
-                padding: 25px;
-                margin: 0 15px;
+                padding: 25px 18px;
+                margin: 0 5px;
+                border-radius: 20px;
             }
 
+            .date-card::before {
+                font-size: 30px;
+                top: -15px;
+            }
+
+            .date-header {
+                font-size: 1.5rem;
+                margin-bottom: 18px;
+                padding-bottom: 12px;
+            }
+
+            .event-name {
+                font-size: 1.1rem;
+                padding: 12px;
+                margin-bottom: 15px;
+            }
+
+            .event-name span {
+                font-size: 0.85rem;
+            }
+
+            .date-detail {
+                padding: 12px;
+                margin: 15px 0;
+                gap: 12px;
+            }
+
+            .date-detail-icon {
+                font-size: 1.5rem;
+            }
+
+            .date-detail-label {
+                font-size: 0.85rem;
+            }
+
+            .date-detail-value {
+                font-size: 0.95rem;
+            }
+
+            .pickup-message {
+                padding: 15px;
+                font-size: 1.3rem;
+                margin-top: 20px;
+            }
+
+            .pickup-message span {
+                font-size: 0.9rem !important;
+            }
+
+            .final-emojis {
+                font-size: 2rem;
+                margin-top: 15px;
+            }
+
+            /* Cupids smaller on mobile */
             .cupid {
                 font-size: 25px;
+            }
+
+            .cupid-1 { top: 8%; left: 3%; }
+            .cupid-2 { top: 15%; right: 3%; }
+            .cupid-3 { bottom: 10%; left: 5%; }
+            .cupid-4 { bottom: 18%; right: 3%; }
+
+            /* Music button mobile */
+            .music-toggle {
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+                top: 15px;
+                right: 15px;
+            }
+        }
+
+        /* Extra small devices */
+        @media (max-width: 380px) {
+            .name {
+                font-size: 2.3rem;
+            }
+
+            .question {
+                font-size: 1.2rem;
+            }
+
+            .emoji-row {
+                font-size: 1.3rem;
+            }
+
+            .btn {
+                padding: 12px 35px;
+                font-size: 1rem;
+            }
+
+            .success-title {
+                font-size: 2rem;
+            }
+
+            .date-card {
+                padding: 20px 15px;
+            }
+
+            .pickup-message {
+                font-size: 1.1rem;
+            }
+        }
+
+        /* Safe area for notched phones (iPhone X and later) */
+        @supports (padding: max(0px)) {
+            .container {
+                padding-top: max(20px, env(safe-area-inset-top));
+                padding-bottom: max(20px, env(safe-area-inset-bottom));
+                padding-left: max(15px, env(safe-area-inset-left));
+                padding-right: max(15px, env(safe-area-inset-right));
+            }
+
+            .music-toggle {
+                top: max(15px, env(safe-area-inset-top));
+                right: max(15px, env(safe-area-inset-right));
             }
         }
     </style>
 </head>
 <body>
+    <!-- Music Toggle Button -->
+    <button class="music-toggle" id="musicToggle" onclick="toggleMusic()" title="Play/Pause Music">
+        <span class="music-note">🎵</span>
+    </button>
+
+    <!-- Background Music - A Thousand Years Piano -->
+    <audio id="bgMusic" loop>
+        <source src="A Thousand Years - Christina Perri  BEGINNER PIANO TUTORIAL  SHEET MUSIC by Betacustic.mp3" type="audio/mpeg">
+    </audio>
+
     <!-- Floating Hearts Background -->
     <div class="floating-hearts" id="floatingHearts"></div>
 
@@ -545,7 +765,8 @@
             <div class="card-decoration bottom-left">💕</div>
             <div class="card-decoration bottom-right">💕</div>
 
-            <h1 class="name">Hello Hema, Aashi, Hemanshi</h1>
+            <h1 class="name">Hello HEMA</h1>
+            <h1 class="name">AASHI & ANJULA</h1>
             <div class="emoji-row">💖 💐 🥰 💐 💖</div>
             <p class="question">Will You Be My Valentine?</p>
             <div class="emoji-row">💘 🌹 💘</div>
@@ -595,7 +816,7 @@
 
                 <div class="pickup-message">
                     🚗 I'll pick you up! 💐<br>
-                    <span style="font-size: 1rem; font-family: 'Quicksand', sans-serif;">Get ready for a magical evening!</span>
+                    <span style="font-size: 1rem; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">Get ready for a magical evening!</span>
                 </div>
             </div>
 
@@ -610,6 +831,11 @@
         const noTexts = [
             "No 😢",
             "Really? 🥺",
+            "You know we have a Vibe",
+            "Okay we will create one! 😉",
+            "Are you sure? 🤔",
+            "I have already learnt Alfredo Pasta for you! 🍝",
+            "Okay, Ramen it is! 🍜",
             "Think Again! 💭",
             "Are you sure? 😟",
             "Haha, nice try! 😏",
@@ -634,6 +860,59 @@
         const noBtn = document.getElementById('noBtn');
         const buttonsContainer = document.getElementById('buttonsContainer');
 
+        // Music Player
+        const bgMusic = document.getElementById('bgMusic');
+        const musicToggle = document.getElementById('musicToggle');
+        let isPlaying = false;
+        let hasInteracted = false;
+
+        bgMusic.volume = 0.3; // Set volume to 30%
+
+        // Start music on ANY first interaction (click, touch, scroll, keypress)
+        function startMusicOnInteraction() {
+            if (!hasInteracted) {
+                bgMusic.play().then(() => {
+                    musicToggle.classList.add('playing');
+                    musicToggle.innerHTML = '<span class="music-note">🎶</span>';
+                    isPlaying = true;
+                    hasInteracted = true;
+                }).catch(() => {
+                    // Browser blocked autoplay, will try again on next interaction
+                });
+            }
+        }
+
+        // Listen for any interaction
+        document.addEventListener('click', startMusicOnInteraction);
+        document.addEventListener('touchstart', startMusicOnInteraction);
+        document.addEventListener('keydown', startMusicOnInteraction);
+        document.addEventListener('scroll', startMusicOnInteraction);
+        document.addEventListener('mousemove', startMusicOnInteraction, { once: true });
+
+        function toggleMusic() {
+            if (isPlaying) {
+                bgMusic.pause();
+                musicToggle.classList.remove('playing');
+                musicToggle.innerHTML = '<span class="music-note">🎵</span>';
+            } else {
+                bgMusic.play();
+                musicToggle.classList.add('playing');
+                musicToggle.innerHTML = '<span class="music-note">🎶</span>';
+            }
+            isPlaying = !isPlaying;
+            hasInteracted = true;
+        }
+
+        // Auto-play music when she clicks Yes
+        function playMusicOnYes() {
+            if (!isPlaying) {
+                bgMusic.play();
+                musicToggle.classList.add('playing');
+                musicToggle.innerHTML = '<span class="music-note">🎶</span>';
+                isPlaying = true;
+            }
+        }
+
         // Create floating hearts
         function createFloatingHearts() {
             const container = document.getElementById('floatingHearts');
@@ -653,12 +932,19 @@
         // Escape button logic
         function escapeButton() {
             if (noClickCount > 2) {
-                const yesBtn = document.querySelector('.btn-yes');
-                const yesBtnRect = yesBtn.getBoundingClientRect();
-                const containerRect = buttonsContainer.getBoundingClientRect();
+                const isMobile = window.innerWidth <= 768;
                 
-                // Define safe zones (away from Yes button)
-                const safePositions = [
+                // Define safe zones (smaller movements for mobile)
+                const safePositions = isMobile ? [
+                    { x: -80, y: -60 },    // Top left
+                    { x: 80, y: -60 },     // Top right
+                    { x: -70, y: 60 },     // Bottom left
+                    { x: 70, y: 60 },      // Bottom right
+                    { x: 0, y: -80 },      // Top center
+                    { x: -90, y: 0 },      // Left
+                    { x: 90, y: 0 },       // Right
+                    { x: 0, y: 80 },       // Bottom center
+                ] : [
                     { x: -150, y: -80 },   // Top left
                     { x: 150, y: -80 },    // Top right
                     { x: -180, y: 50 },    // Bottom left
@@ -673,9 +959,10 @@
                 // Pick a random safe position
                 const randomPos = safePositions[Math.floor(Math.random() * safePositions.length)];
                 
-                // Add some randomness to the position
-                const offsetX = (Math.random() - 0.5) * 40;
-                const offsetY = (Math.random() - 0.5) * 30;
+                // Add some randomness to the position (less on mobile)
+                const randomRange = isMobile ? 20 : 40;
+                const offsetX = (Math.random() - 0.5) * randomRange;
+                const offsetY = (Math.random() - 0.5) * (randomRange * 0.75);
                 
                 noBtn.classList.add('escaping');
                 noBtn.style.transform = `translate(${randomPos.x + offsetX}px, ${randomPos.y + offsetY}px)`;
@@ -774,6 +1061,7 @@
             createFireworks();
             createConfetti();
             createPetals();
+            playMusicOnYes(); // Start music on Yes!
             
             // Hide question, show success after a brief delay
             setTimeout(() => {
