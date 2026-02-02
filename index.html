@@ -389,6 +389,112 @@
             75% { transform: scale(1.15); }
         }
 
+        /* Rejection Section */
+        .rejection-section {
+            display: none;
+            text-align: center;
+            animation: sad-entrance 0.8s ease-out;
+            padding: 20px;
+        }
+
+        @keyframes sad-entrance {
+            0% {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .rejection-section.show {
+            display: block;
+        }
+
+        .sad-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 15px 50px rgba(100, 100, 100, 0.2);
+            max-width: 450px;
+            margin: 0 auto;
+            border: 2px solid #ddd;
+        }
+
+        .sad-emoji {
+            font-size: 5rem;
+            margin-bottom: 20px;
+            animation: pulse-sad 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-sad {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .sad-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .sad-message {
+            font-size: 1.2rem;
+            color: #555;
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .sad-submessage {
+            font-size: 1rem;
+            color: #777;
+            margin-bottom: 25px;
+        }
+
+        .rejection-note {
+            background: linear-gradient(135deg, #f5f5f5, #eee);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+        }
+
+        .rejection-note p {
+            color: #666;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+
+        .hope-emoji {
+            font-size: 2rem;
+        }
+
+        .btn-reconsider {
+            background: linear-gradient(135deg, var(--deep-rose), var(--rose-pink));
+            color: white;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(230, 57, 98, 0.4);
+            transition: all 0.3s ease;
+            animation: reconsider-pulse 2s ease-in-out infinite;
+        }
+
+        .btn-reconsider:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 35px rgba(230, 57, 98, 0.5);
+        }
+
+        @keyframes reconsider-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+        }
+
         /* Fireworks */
         .fireworks-container {
             position: fixed;
@@ -683,6 +789,41 @@
                 top: 15px;
                 right: 15px;
             }
+
+            /* Rejection section mobile */
+            .rejection-section {
+                padding: 10px;
+            }
+
+            .sad-card {
+                padding: 25px 20px;
+                margin: 0 10px;
+            }
+
+            .sad-emoji {
+                font-size: 4rem;
+            }
+
+            .sad-title {
+                font-size: 2rem;
+            }
+
+            .sad-message {
+                font-size: 1rem;
+            }
+
+            .sad-submessage {
+                font-size: 0.9rem;
+            }
+
+            .rejection-note {
+                padding: 15px;
+            }
+
+            .btn-reconsider {
+                padding: 12px 30px;
+                font-size: 1rem;
+            }
         }
 
         /* Extra small devices */
@@ -765,7 +906,7 @@
             <div class="card-decoration bottom-left">💕</div>
             <div class="card-decoration bottom-right">💕</div>
 
-            <h1 class="name">Hello HEMA</h1>
+            <h1 class="name">HELLO HEMA</h1>
             <h1 class="name">AASHI & ANJULA</h1>
             <div class="emoji-row">💖 💐 🥰 💐 💖</div>
             <p class="question">Will You Be My Valentine?</p>
@@ -824,6 +965,25 @@
                 💕 🌹 💑 🌹 💕
             </div>
         </div>
+
+        <!-- Rejection Section -->
+        <div class="rejection-section" id="rejectionSection">
+            <div class="sad-card">
+                <div class="sad-emoji">💔</div>
+                <h1 class="sad-title">Oh no...</h1>
+                <p class="sad-message">I understand, Hema. I really thought we had something special...</p>
+                <p class="sad-submessage">But I respect your decision. 🥺</p>
+                
+                <div class="rejection-note">
+                    <p>If you ever change your mind, you know where to find me...</p>
+                    <div class="hope-emoji">🌹</div>
+                </div>
+
+                <button class="btn btn-reconsider" onclick="reconsider()">
+                    Wait, let me reconsider! 💕
+                </button>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -849,11 +1009,12 @@
             "Pretty please? 🙏",
             "I'll be sad... 😭",
             "Don't break my heart! 💔",
-            "One more chance? 🍀",
+            "One chance? 🍀",
             "The button has spoken! 🔮",
             "Resistance is futile! 👽",
-            "Love always wins! 🏆",
-            "Just say yes! 💫"
+            "We can wins! 🏆",
+            "Just say yes! 💫",
+            "Last chance... 💔"
         ];
 
         let noClickCount = 0;
@@ -972,6 +1133,13 @@
         // Handle No button click
         function handleNo() {
             noClickCount++;
+            
+            // If she's gone through all messages, show rejection
+            if (noClickCount >= noTexts.length) {
+                showRejection();
+                return;
+            }
+            
             const textIndex = noClickCount % noTexts.length;
             noBtn.textContent = noTexts[textIndex];
             
@@ -984,6 +1152,45 @@
             if (noClickCount > 2) {
                 escapeButton();
             }
+        }
+
+        // Show rejection screen
+        function showRejection() {
+            document.getElementById('questionSection').classList.add('hide');
+            document.getElementById('rejectionSection').classList.add('show');
+            
+            // Send notification (opens email)
+            sendRejectionNotification();
+        }
+
+        // Send email notification about rejection
+        function sendRejectionNotification() {
+            const subject = encodeURIComponent("Valentine Response from Hema 💔");
+            const body = encodeURIComponent("Hi,\n\nHema went through all " + noTexts.length + " messages and said No.\n\nShe clicked No " + noClickCount + " times.\n\nDon't lose hope! 🌹");
+            
+            // Replace with your email
+            const email = "adityasharma30@icloud.com";
+            
+            // Open email client (this won't force her to send, just prepares it)
+            // You can remove this if you don't want email
+            // window.open(`mailto:${email}?subject=${subject}&body=${body}`);
+            
+            // Log to console (you can see this if she shares screenshot)
+            console.log("💔 Response: No after " + noClickCount + " attempts");
+        }
+
+        // Reconsider button - goes back to question
+        function reconsider() {
+            document.getElementById('rejectionSection').classList.remove('show');
+            document.getElementById('questionSection').classList.remove('hide');
+            
+            // Reset the No button
+            noClickCount = 0;
+            noBtn.textContent = noTexts[0];
+            noBtn.style.fontSize = '1.3rem';
+            noBtn.style.padding = '18px 50px';
+            noBtn.style.transform = 'translate(0, 0)';
+            noBtn.classList.remove('escaping');
         }
 
         // Create fireworks
