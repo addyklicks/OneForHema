@@ -1009,10 +1009,10 @@
             "Pretty please? 🙏",
             "I'll be sad... 😭",
             "Don't break my heart! 💔",
-            "One chance? 🍀",
+            "One more chance? 🍀",
             "The button has spoken! 🔮",
             "Resistance is futile! 👽",
-            "We can wins! 🏆",
+            "We can Win! 🏆",
             "Just say yes! 💫",
             "Last chance... 💔"
         ];
@@ -1165,18 +1165,35 @@
 
         // Send email notification about rejection
         function sendRejectionNotification() {
-            const subject = encodeURIComponent("Valentine Response from Hema 💔");
-            const body = encodeURIComponent("Hi,\n\nHema went through all " + noTexts.length + " messages and said No.\n\nShe clicked No " + noClickCount + " times.\n\nDon't lose hope! 🌹");
+            // Send Telegram notification
+            const botToken = "8363577525:AAFbXtarOlf7pE4NiWPCuLRZXN0VM3FiK5U";
+            const chatId = "543549539";
+            const message = "💔 Valentine Response from Hema\n\n❌ She said NO\n\nShe went through all " + noTexts.length + " messages and still declined.\n\nDon't lose hope! 🌹";
             
-            // Replace with your email
-            const email = "adityasharmaogs@gmail.com";
+            fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    chat_id: chatId,
+                    text: message
+                })
+            }).catch(err => console.log('Notification sent'));
+        }
+
+        // Send notification when she says YES
+        function sendYesNotification() {
+            const botToken = "8363577525:AAFbXtarOlf7pE4NiWPCuLRZXN0VM3FiK5U";
+            const chatId = "543549539";
+            const message = "🎉💕 Valentine Response from Hema\n\n✅ SHE SAID YES!!! 🥳\n\nCongratulations! She accepted your Valentine's proposal! 💘🌹\n\nTime to celebrate! 🎆";
             
-            // Open email client (this won't force her to send, just prepares it)
-            // You can remove this if you don't want email
-            // window.open(`mailto:${email}?subject=${subject}&body=${body}`);
-            
-            // Log to console (you can see this if she shares screenshot)
-            console.log("💔 Response: No after " + noClickCount + " attempts");
+            fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    chat_id: chatId,
+                    text: message
+                })
+            }).catch(err => console.log('Notification sent'));
         }
 
         // Reconsider button - goes back to question
@@ -1269,6 +1286,7 @@
             createConfetti();
             createPetals();
             playMusicOnYes(); // Start music on Yes!
+            sendYesNotification(); // Send Telegram notification!
             
             // Hide question, show success after a brief delay
             setTimeout(() => {
