@@ -240,6 +240,50 @@
             position: absolute;
         }
 
+        .countdown-card {
+            margin: 15px auto 5px;
+            padding: 15px 20px;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid var(--soft-pink);
+            max-width: 420px;
+            box-shadow: 0 10px 30px rgba(230, 57, 98, 0.15);
+            text-align: center;
+        }
+
+        .countdown-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.6rem;
+            color: var(--deep-rose);
+            margin-bottom: 8px;
+        }
+
+        .countdown-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(60px, 1fr));
+            gap: 10px;
+        }
+
+        .countdown-item {
+            background: linear-gradient(135deg, var(--blush), #fff);
+            border-radius: 14px;
+            padding: 10px 6px;
+        }
+
+        .countdown-value {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--burgundy);
+        }
+
+        .countdown-label {
+            font-size: 0.75rem;
+            color: var(--rose-pink);
+            margin-top: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
         /* Success Section */
         .success-section {
             display: none;
@@ -695,6 +739,10 @@
             .card-decoration.bottom-left { bottom: -10px; left: -10px; }
             .card-decoration.bottom-right { bottom: -10px; right: -10px; }
 
+            .countdown-grid {
+                grid-template-columns: repeat(2, minmax(80px, 1fr));
+            }
+
             /* Success Section Mobile */
             .success-section {
                 padding: 0 10px;
@@ -924,6 +972,28 @@
             <h1 class="success-title">I Knew It! 🎉</h1>
             <p class="success-subtitle">You just made me the happiest person! 💕</p>
             
+            <div class="countdown-card" id="countdownCard">
+                <div class="countdown-title">Countdown to our date</div>
+                <div class="countdown-grid">
+                    <div class="countdown-item">
+                        <div class="countdown-value" id="cdDays">--</div>
+                        <div class="countdown-label">Days</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div class="countdown-value" id="cdHours">--</div>
+                        <div class="countdown-label">Hours</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div class="countdown-value" id="cdMins">--</div>
+                        <div class="countdown-label">Mins</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div class="countdown-value" id="cdSecs">--</div>
+                        <div class="countdown-label">Secs</div>
+                    </div>
+                </div>
+            </div>
+
             <div class="date-card">
                 <h2 class="date-header">Our Valentine's Date ✨</h2>
                 
@@ -1050,6 +1120,46 @@
         document.addEventListener('keydown', startMusicOnInteraction);
         document.addEventListener('scroll', startMusicOnInteraction);
         document.addEventListener('mousemove', startMusicOnInteraction, { once: true });
+
+        // Countdown timer (next Feb 14 at 7:00 PM local)
+        const cdDays = document.getElementById('cdDays');
+        const cdHours = document.getElementById('cdHours');
+        const cdMins = document.getElementById('cdMins');
+        const cdSecs = document.getElementById('cdSecs');
+
+        function getTargetDate() {
+            const now = new Date();
+            const year = now.getFullYear();
+            let target = new Date(year, 1, 14, 19, 0, 0);
+            if (now > target) {
+                target = new Date(year + 1, 1, 14, 19, 0, 0);
+            }
+            return target;
+        }
+
+        let countdownTarget = getTargetDate();
+
+        function updateCountdown() {
+            const now = new Date();
+            let diff = countdownTarget - now;
+            if (diff < 0) {
+                countdownTarget = getTargetDate();
+                diff = countdownTarget - now;
+            }
+            const totalSeconds = Math.floor(diff / 1000);
+            const days = Math.floor(totalSeconds / 86400);
+            const hours = Math.floor((totalSeconds % 86400) / 3600);
+            const mins = Math.floor((totalSeconds % 3600) / 60);
+            const secs = totalSeconds % 60;
+
+            cdDays.textContent = String(days).padStart(2, '0');
+            cdHours.textContent = String(hours).padStart(2, '0');
+            cdMins.textContent = String(mins).padStart(2, '0');
+            cdSecs.textContent = String(secs).padStart(2, '0');
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
 
         function toggleMusic() {
             if (isPlaying) {
