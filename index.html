@@ -920,6 +920,79 @@
                 right: max(15px, env(safe-area-inset-right));
             }
         }
+
+        /* Choice Cards */
+        .choice-container {
+            display: flex;
+            gap: 20px;
+            margin-top: 25px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .choice-card {
+            background: linear-gradient(135deg, #fff 0%, var(--cream) 100%);
+            border: 2px solid var(--soft-pink);
+            border-radius: 20px;
+            padding: 30px 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 220px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(230, 57, 98, 0.15);
+            font-family: inherit;
+        }
+
+        .choice-card:hover {
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 15px 40px rgba(230, 57, 98, 0.3);
+            border-color: var(--deep-rose);
+        }
+
+        .choice-card:active {
+            transform: scale(0.97);
+        }
+
+        .choice-emoji {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .choice-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            color: var(--burgundy);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .choice-desc {
+            font-size: 0.9rem;
+            color: var(--rose-pink);
+            line-height: 1.4;
+        }
+
+        @media (max-width: 768px) {
+            .choice-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+
+            .choice-card {
+                width: 85%;
+                max-width: 280px;
+                padding: 25px 20px;
+            }
+
+            .choice-emoji {
+                font-size: 2.5rem;
+            }
+
+            .choice-title {
+                font-size: 1.1rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -967,11 +1040,28 @@
             </div>
         </div>
 
-        <!-- Success Section -->
+        <!-- Success Section - Choice Step -->
         <div class="success-section" id="successSection">
             <h1 class="success-title">I Knew It! 🎉</h1>
             <p class="success-subtitle">You just made me the happiest person! 💕</p>
-            
+            <p class="success-subtitle" style="font-size: 1.3rem; margin-top: 10px;">Now tell me...</p>
+
+            <div class="choice-container">
+                <button class="choice-card" onclick="chooseDelhi()">
+                    <div class="choice-emoji">🏙️</div>
+                    <div class="choice-title">Stay in Delhi NCR</div>
+                    <div class="choice-desc">A magical evening awaits in the city</div>
+                </button>
+                <button class="choice-card" onclick="chooseTravel()">
+                    <div class="choice-emoji">🧳</div>
+                    <div class="choice-title">Travel over the weekend</div>
+                    <div class="choice-desc">Let's go on an adventure!</div>
+                </button>
+            </div>
+        </div>
+
+        <!-- Delhi NCR Section - Candlelight Booking -->
+        <div class="success-section" id="delhiSection">
             <div class="countdown-card" id="countdownCard">
                 <div class="countdown-title">Countdown to our date</div>
                 <div class="countdown-grid">
@@ -996,7 +1086,7 @@
 
             <div class="date-card">
                 <h2 class="date-header">Our Valentine's Date ✨</h2>
-                
+
                 <div class="event-name">
                     🎵 Candlelight: Timeless Love Songs from Classic Films 🎬
                     <span>A magical evening of romantic melodies</span>
@@ -1034,6 +1124,83 @@
 
             <div class="final-emojis">
                 💕 🌹 🫠 🌹 💕
+            </div>
+        </div>
+
+        <!-- Travel Choice Section -->
+        <div class="success-section" id="travelChoiceSection">
+            <h1 class="success-title">Adventure Awaits! 🗺️</h1>
+            <p class="success-subtitle">Where would you like to go?</p>
+
+            <div class="choice-container">
+                <button class="choice-card" onclick="chooseMountains()">
+                    <div class="choice-emoji">🏔️</div>
+                    <div class="choice-title">To the Mountains</div>
+                    <div class="choice-desc">Fresh air, stunning views & us</div>
+                </button>
+                <button class="choice-card" onclick="choosePlains()">
+                    <div class="choice-emoji">🛕</div>
+                    <div class="choice-title">In the Plains</div>
+                    <div class="choice-desc">A soulful journey awaits</div>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mountains Section -->
+        <div class="success-section" id="mountainsSection">
+            <h1 class="success-title">Mountains it is! 🏔️</h1>
+            <p class="success-subtitle">This is going to be amazing! ✨</p>
+
+            <div class="date-card">
+                <h2 class="date-header">Pack Your Bags! 🎒</h2>
+
+                <div class="date-detail">
+                    <div class="date-detail-icon">🚗</div>
+                    <div class="date-detail-content">
+                        <div class="date-detail-label">The Plan</div>
+                        <div class="date-detail-value">
+                            I'll pick you up at 6 AM in the morning on 14th Feb!
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pickup-message">
+                    Pack warm clothes & get ready for an unforgettable trip! 🧣❄️<br>
+                    <span style="font-size: 1rem; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">The mountains are calling and we must go! 🏔️</span>
+                </div>
+            </div>
+
+            <div class="final-emojis">
+                💕 🏔️ 🌄 🏔️ 💕
+            </div>
+        </div>
+
+        <!-- Plains Section -->
+        <div class="success-section" id="plainsSection">
+            <h1 class="success-title">Kashi, here we come! 🛕</h1>
+            <p class="success-subtitle">You're going to love this! ✨</p>
+
+            <div class="date-card">
+                <h2 class="date-header">All Aboard! 🚂</h2>
+
+                <div class="date-detail">
+                    <div class="date-detail-icon">🚂</div>
+                    <div class="date-detail-content">
+                        <div class="date-detail-label">The Plan</div>
+                        <div class="date-detail-value">
+                            We have to catch a train at 6 in the morning for Kashi!
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pickup-message">
+                    You'll love it. Trust me! 💫<br>
+                    <span style="font-size: 1rem; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">The ghats, the aarti, the magic of Kashi and Us! 🪔</span>
+                </div>
+            </div>
+
+            <div class="final-emojis">
+                💕 🛕 🌅 🛕 💕
             </div>
         </div>
 
@@ -1291,7 +1458,7 @@
             }).catch(err => console.log('Notification sent'));
         }
 
-        // Send notification when she says YES
+        // Send notificat0ion when she says YES
         function sendYesNotification() {
             const botToken = "8363577525:AAFbXtarOlf7pE4NiWPCuLRZXN0VM3FiK5U";
             const chatId = "543549539";
@@ -1407,6 +1574,53 @@
                 // Continue petals
                 setInterval(createPetals, 5000);
             }, 1000);
+        }
+
+        // Send step-by-step Telegram notification
+        function sendStepNotification(message) {
+            const botToken = "8363577525:AAFbXtarOlf7pE4NiWPCuLRZXN0VM3FiK5U";
+            const chatId = "543549539";
+
+            fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    chat_id: chatId,
+                    text: message
+                })
+            }).catch(err => console.log('Notification sent'));
+        }
+
+        // Choice: Stay in Delhi NCR
+        function chooseDelhi() {
+            sendStepNotification("🏙️ Step 2: Hema chose to STAY IN DELHI NCR!\n\nShe's going for the Candlelight experience! 🎵✨");
+            document.getElementById('successSection').classList.remove('show');
+            document.getElementById('delhiSection').classList.add('show');
+        }
+
+        // Choice: Travel over the weekend
+        function chooseTravel() {
+            sendStepNotification("🧳 Step 2: Hema chose to TRAVEL OVER THE WEEKEND!\n\nNow choosing between Mountains and Plains... ⏳");
+            document.getElementById('successSection').classList.remove('show');
+            document.getElementById('travelChoiceSection').classList.add('show');
+        }
+
+        // Choice: Mountains
+        function chooseMountains() {
+            sendStepNotification("🏔️ Step 3: Hema chose MOUNTAINS!\n\nPick her up at 6 AM on 14th Feb! Get the car ready! 🚗");
+            document.getElementById('travelChoiceSection').classList.remove('show');
+            document.getElementById('mountainsSection').classList.add('show');
+            createConfetti();
+            createPetals();
+        }
+
+        // Choice: Plains (Kashi)
+        function choosePlains() {
+            sendStepNotification("🛕 Step 3: Hema chose PLAINS - KASHI!\n\nTrain at 6 AM on 14th Feb! Book the tickets! 🚂");
+            document.getElementById('travelChoiceSection').classList.remove('show');
+            document.getElementById('plainsSection').classList.add('show');
+            createConfetti();
+            createPetals();
         }
 
         // Initialize
